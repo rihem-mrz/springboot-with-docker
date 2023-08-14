@@ -2,7 +2,7 @@ pipeline{
     agent any
     
     parameters{
-        string(name: 'Host', defaultValue: '192.168.102.80', description: 'The host Ip address for K8s master node')
+        string(name: 'Host', defaultValue: '', description: 'The host Ip address for K8s master node')
     }
     
     
@@ -35,8 +35,8 @@ pipeline{
                 script {
                     def remoteHost = params.Host
                     def remoteUser = 'cloud-user'
-
-                    sshagent(credentials: ['ID_K8S']) {
+                    def sshKey = credentials('ID_K8S')
+                    sshagent(credentials: [sshKey]) {
                         sh "ssh ${remoteUser}@${remoteHost} 'echo Hello from remote host'"
                         sh 'docker pull 192.168.102.81:5000/demo-app:v1.0'
                         sh 'kubectl apply -f k8s-spring-boot-deployment.yml'
