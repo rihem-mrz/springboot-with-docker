@@ -18,7 +18,7 @@ pipeline{
         stage("Build the Docker Image"){
             steps{
                 echo "Building Docker Image"
-                withCredentials([usernamePassword(credentialId:'NEXUS_LOGIN', passwordVariable: 'PWD', usernameVariable: 'USER')]){
+                withCredentials([usernamePassword(credentialsId:'NEXUS_LOGIN', passwordVariable: 'PWD', usernameVariable: 'USER')]){
                     sh "echo Username: \${USER}"
                     sh "echo ${PWD} | docker login -u ${USER} --password-stdin 192.168.102.81:5000"
                     sh 'docker build -t demo-app:v1.0 . '
