@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jhooq-springboot
+  name: demo-app
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: jhooq-springboot
+      app: demo-app
   template:
     metadata:
       labels:
-        app: jhooq-springboot
+        app: demo-app
     spec:
       containers:
-        - name: springboot
-          image: rahulwagh17/jhooq-docker-demo:jhooq-docker-demo
+        - name: springboot-app
+          image: 192.168.102.81:5000/demo-app:v1.0
           ports:
             - containerPort: 8080
           env:
@@ -24,11 +24,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: jhooq-springboot
+  name: demo-app
 spec:
   type: NodePort
   ports:
     - port: 80
       targetPort: 8080
   selector:
-    app: jhooq-springboot
+    app: demo-app
