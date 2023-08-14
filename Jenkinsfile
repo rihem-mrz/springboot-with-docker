@@ -1,7 +1,5 @@
 pipeline{
-    agent{
-        label "node"
-    }
+    agent any
     
     parameters{
         string(name: 'Host', defaultValue: '192.168.102.80', description: 'The host Ip address for K8s master node')
