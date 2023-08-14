@@ -35,9 +35,9 @@ pipeline{
                 script {
                     def remoteHost = params.Host
                     def remoteUser = 'cloud-user'
-                    def sshKey = credentials('ID_K8S')
+                    #def sshKey = credentials('ID_K8S')
 
-                    sshagent(credentials: ['sshKey']) {
+                    sshagent(credentials: ['ID_K8S']) {
                         sh "ssh ${remoteUser}@${remoteHost} 'echo Hello from remote host'"
                         sh 'docker pull 192.168.102.81:5000/demo-app:v1.0'
                         sh 'kubectl apply -f k8s-spring-boot-deployment.yml'
