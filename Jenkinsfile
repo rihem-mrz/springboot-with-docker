@@ -32,17 +32,17 @@ pipeline{
         stage("SSH into K8S"){
             steps{
                 echo "SSH into K8s master node"
-                def remote = [:]
-                remote.host = params.Host
-                remote.allowAnyHosts = true
-                withCredentials([sshUserPrivateKey(credentialsId: 'ID_K8S', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
-                    remote.user = userName
-                    remote.identityFile = identity
-                    stage("Run the application") {
-                        sshCommand remote: remote, command: "docker pull 192.168.102.81:5000/demo-app:v1.0"
-                        sshCommand remote: remote, command: "kubectl apply -f /home/cloud-user/springboot-with-docker/k8s-spring-boot-deployment.yml"
-                    }
-                }
+		def remote = [:]
+		remote.host = params.Host
+		remote.allowAnyHosts = true
+		withCredentials([sshUserPrivateKey(credentialsId: 'ID_K8S', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
+  		    remote.user = userName
+      		    remote.identityFile = identity
+
+        	    sshCommand remote: remote, command: "echo Hello from remote host"
+        	    sshCommand remote: remote, command: "docker pull 192.168.102.81:5000/demo-app:v1.0"
+                    sshCommand remote: remote, command: "kubectl apply -f /home/cloud-user/springboot-with-docker/k8s-spring-boot-deployment.yml"
+		                    
             }
 
         }
