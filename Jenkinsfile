@@ -42,8 +42,8 @@ pipeline{
         	    sshCommand remote: remote, command: "echo Hello from remote host"
         	    sshCommand remote: remote, command: "docker pull 192.168.102.81:5000/demo-app:v1.0"
                     sshCommand remote: remote, command: "kubectl apply -f /home/cloud-user/springboot-with-docker/k8s-spring-boot-deployment.yml"
-		                    
-            }
+		}
+	    }
 
         }
     }
