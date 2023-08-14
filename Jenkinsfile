@@ -35,7 +35,6 @@ pipeline{
                 script {
                     def remoteHost = params.Host
                     def remoteUser = 'cloud-user'
-                    #def sshKey = credentials('ID_K8S')
 
                     sshagent(credentials: ['ID_K8S']) {
                         sh "ssh ${remoteUser}@${remoteHost} 'echo Hello from remote host'"
