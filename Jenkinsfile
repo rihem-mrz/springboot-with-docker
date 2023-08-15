@@ -34,6 +34,7 @@ pipeline{
                 echo "SSH into K8s master node"
 		script{
 			def remote = [:]
+			remote.name = "master-pfe-3"
                         remote.host = params.Host
                         remote.allowAnyHosts = true
 
