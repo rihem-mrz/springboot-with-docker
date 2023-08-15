@@ -33,11 +33,12 @@ pipeline{
             steps{
                 echo "SSH into K8s master node"
 		script{
+			def remote = [:]
+                        remote.host = params.Host
+                        remote.allowAnyHosts = true
+
                 	withCredentials([sshUserPrivateKey(credentialsId: 'ID_K8S', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'userName')]) {
 				
-				def remote = [:]
-				remote.host = params.Host
-                        	remote.allowAnyHosts = true
                     		remote.user = userName
                     		remote.identityFile = identity
                        		sshCommand remote: remote, command: "echo Hello from remote host"
